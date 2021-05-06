@@ -1,10 +1,7 @@
-// The Firebase Admin SDK to access Firestore.
-const admin = require('firebase-admin');
+const functions = require('firebase-functions');
 const users = require('./handlers/users');
-const email = require('./handlers/email');
+// const email = require('./handlers/email');
 
-admin.initializeApp();
-
-exports.addUser = users.addUser;
-exports.getUsers = users.getUsers;
-exports.sendEmailConfirmation = email.sendEmailConfirmation;
+module.exports = {
+  'getUsers' : functions.https.onRequest(users)
+}
