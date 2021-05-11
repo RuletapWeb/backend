@@ -30,4 +30,4 @@ jobs:
     - name: install firebase
       run: npm i firebase-tools -g  
     - name: deploy
-      run: firebase deploy --token ${{ secrets.GCLOUD_TOKEN }}
+      run: firebase deploy --token ${{ secrets.GCLOUD_TOKEN }} --only functions --project ruleta-develop
