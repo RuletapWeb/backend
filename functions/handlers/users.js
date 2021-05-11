@@ -57,7 +57,26 @@ const addUser = async (req, res) => {
     }
 };
 
+const findUserById = async (req, res) => {
+    const id = req.params.id;
+ 
+    try {
+        const user =  await db.collection('users')
+        .where('alias', '==', id)
+        .get();
+
+        res.status(200).json({
+            user
+        })
+        
+    } catch (error) {
+        res.status(500).json({error});
+    }
+
+}
+
 module.exports = {
     getUsers,
-    addUser
+    addUser,
+    findUserById
 };
