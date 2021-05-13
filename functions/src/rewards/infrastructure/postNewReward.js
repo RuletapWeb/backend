@@ -3,15 +3,15 @@ const {
 } = require('../../../utils/firestore');
 
 const { createReward } = require('../application/rewardFeatures');
-const { findRandomCupon } = require('../../cupons/infrastructure/findRandomCupon')
+const { findRandomPromo } = require('../../promos/infrastructure/findRandomPromo')
 
 const postNewReward = async (user) => {
 
-    //find random cupon in DB
+    //find random promo in DB
 
-    const cupon = await findRandomCupon();
+    const promo = await findRandomPromo();
 
-    const newReward = await createReward(user, cupon);
+    const newReward = await createReward(user, promo);
    
     const result = await db.collection("rewards")
         .add(newReward);

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const { postNewReward } = require('../handlers/rewards/infrastructure/postNewReward')
+const { postNewReward } = require('../src/rewards/infrastructure/postNewReward')
 
 router.post('/:userId', async (req, res) => {
     const { userId } = req.params;
@@ -18,6 +18,7 @@ router.post('/:userId', async (req, res) => {
         });
     }
 });
+
 router.get('/', async (req, res) => {
     //Get all rewards now
 });

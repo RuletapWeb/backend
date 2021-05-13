@@ -1,14 +1,14 @@
 var express = require('express');
 var router = express.Router();
 
-const { postNewCupon } = require('../handlers/cupons/infrastructure/postNewCupon')
-const { findRandomCupon } = require('../handlers/cupons/infrastructure/findRandomCupon')
+const { postNewPromo } = require('../src/promos/infrastructure/postNewPromo')
+const { findRandomPromo } = require('../src/promos/infrastructure/findRandomPromo')
 
 router.post('/', async (req, res) => {
     const { brandId, description } = req.body;
 
     try {
-        const result = await postNewCupon(brandId,description);
+        const result = await postNewPromo(brandId,description);
 
         res.status(200).json({
             result
@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const result = await findRandomCupon();
+        const result = await findRandomPromo();
 
         res.status(200).json({
             result
