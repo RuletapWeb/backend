@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
-const { postNewUser } = require('../src/user/Infrastructure/postNewUser');
-const { deleteUser } = require('../src/user/Infrastructure/deleteUserById');
+const { postNewUser } = require('../src/user/infrastructure/postNewUser');
+const { deleteUser } = require('../src/user/infrastructure/deleteUserById');
 
 router.post('/', async (req, res) => {
     const { body } = req;
