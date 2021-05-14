@@ -1,24 +1,23 @@
 const functions = require('firebase-functions');
 const express = require('express');
 
-const { getUsers, addUser, findUserById } = require("./handlers/users");
-const { getReward, createReward } = require("./handlers/rewards");
-
-// const email = require('./handlers/email');
-
 const users = express();
 const rewards = express();
+const promos = express();
 
+const userRouter = require('./controlers/usersController');
+const rewardRouter = require('./controlers/rewardsController');
+const promoRouter = require('./controlers/promosController');
 
 // ------------ USER ------------
-users.get('/', getUsers);
-users.get('/:id', findUserById);
-users.post('/', addUser);
+users.use('/', userRouter);
 
 // ------------ AWARD ------------
-rewards.get('/', getReward);
-rewards.post('/', createReward);
+rewards.use('/', rewardRouter);
 
+// ------------ promos ------------
+promos.use('/', promoRouter);
 
 exports.users = functions.https.onRequest(users);
 exports.rewards = functions.https.onRequest(rewards);
+exports.promos = functions.https.onRequest(promos);
