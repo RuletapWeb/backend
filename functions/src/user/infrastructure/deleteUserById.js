@@ -1,18 +1,26 @@
-const { db } = require('../../../utils/firestore');
+const {
+    db
+} = require('../../../utils/firestore');
 
-const { deleteUserById } = require('../application/usersFeature');
+const {
+    deleteUserById
+} = require('../application/usersFeature');
 
 const deleteUser = async (id) => {
     const user = deleteUserById(id);
 
     let result;
-    if (user) {
+
+    if (user.error) {
+        result = user;
+    } else {
         result = await db.collection("users")
             .doc(user)
             .delete();
-
-    } else {
-        result = { error:"ID invalido" };
+        result = {
+            success: "User deleted.",
+            id: user
+        }
     }
 
     return result;
