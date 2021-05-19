@@ -1,5 +1,9 @@
-const { User } = require('../domain/User');
-const { validateEmail } = require('../../../utils/validateEmail');
+const {
+    User
+} = require('../domain/User');
+const {
+    validateEmail
+} = require('../../../utils/validateEmail');
 
 
 
@@ -8,10 +12,15 @@ const { validateEmail } = require('../../../utils/validateEmail');
 /* -------------------------------------------------------------------------- */
 
 function createUser(payload) {
-    const { email, phone } = payload;
-    let user = { error: "Not valid data sended." };
+    const {
+        email,
+        phone
+    } = payload;
+    let user = {
+        error: "Not valid data sended."
+    };
 
-    if(validateEmail(email)){
+    if (validateEmail(email) && phone) {
         let alias = email.split('@')[0];
 
         user = new User(email, alias, phone);
@@ -28,12 +37,14 @@ function createUser(payload) {
 
 function deleteUserById(id) {
     id = id.toString();
-    let user = { error: "Not valid ID sended"};
+    let user = {
+        error: "Not valid ID sended"
+    };
 
     if (id.length == 20) {
         return id;
     }
-    
+
     return user;
 }
 
@@ -41,10 +52,15 @@ function deleteUserById(id) {
 /*                FEATURE: checking if user is allowed to play                */
 /* -------------------------------------------------------------------------- */
 
-function isUserAllowedToPlay(user){
-    const { email, phoneNumber, lastPlayed, alias } = user;
+function isUserAllowedToPlay(user) {
+    const {
+        email,
+        phoneNumber,
+        lastPlayed,
+        alias
+    } = user;
 
-    const currentUser = new User(email,alias,phoneNumber,lastPlayed);
+    const currentUser = new User(email, alias, phoneNumber, lastPlayed);
 
     const validToPlay = currentUser.isAllow();
 
@@ -52,8 +68,28 @@ function isUserAllowedToPlay(user){
 
 }
 
+/* -------------------------------------------------------------------------- */
+/*                           FEATURE: listing users                           */
+/* -------------------------------------------------------------------------- */
+function listUsers(listFromDb) {
+    console.log("LOGIC");
+    console.log(listFromDb);
+
+    const listedUsers = [];
+    
+    listFromDb.forEach((user) => {
+        let one = new User(user.email, user.alias, user.phoneNumber, user.lastPlayed);
+        one.id = user.docID;
+        
+       listedUsers.push(one);
+    });
+
+    return listedUsers;
+}
+
 module.exports = {
     createUser,
     deleteUserById,
-    isUserAllowedToPlay
+    isUserAllowedToPlay,
+    listUsers
 };

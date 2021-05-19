@@ -8,13 +8,13 @@ const {
 
 const midlewareIsAllowedToPlay = async (userId) => {
     let userFound;
-    
-    const user = await db.collection("users")
-        .doc(userId)
-        .get()
-        .then((doc)=>{
-            userFound = doc.data()
-    });
+
+        await db.collection("users")
+            .doc(userId)
+            .get()
+            .then((doc)=>{
+                userFound = doc.data()
+        });
 
 
     const currentUserCondition = isUserAllowedToPlay(userFound);
