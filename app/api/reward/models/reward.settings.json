@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "rewards",
+  "info": {
+    "name": "Reward",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "prize": {
+      "model": "price"
+    },
+    "shop": {
+      "model": "shop"
+    },
+    "player": {
+      "model": "player"
+    },
+    "token": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "redeemed": {
+      "type": "boolean"
+    }
+  }
+}
