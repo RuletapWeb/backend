@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/prizes/winner",
+      "path": "/prizes/winner/",
       "handler": "prizes.getWinner",
       "config": {
         "policies": []

@@ -23,7 +23,7 @@
     },
     "quantityLeft": {
       "type": "biginteger",
-      "min": "0"
+      "min": "1"
     },
     "shop": {
       "model": "shop",

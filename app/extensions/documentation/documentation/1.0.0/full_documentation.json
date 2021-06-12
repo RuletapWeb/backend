@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/12/2021 6:33:59 AM"
+    "x-generation-date": "06/12/2021 8:43:37 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -810,6 +810,63 @@
         }
       }
     },
+    "/prizes/winner/": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve prizes document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Prizes"
+        ],
+        "parameters": []
+      }
+    },
     "/prizes/count": {
       "get": {
         "deprecated": false,
@@ -1065,63 +1122,6 @@
             }
           }
         ]
-      }
-    },
-    "/prizes/winner": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "Retrieve prizes document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Prizes"
-        ],
-        "parameters": []
       }
     },
     "/rewards": {
@@ -4693,7 +4693,52 @@
             "type": "string"
           },
           "redeemed": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
+          },
+          "prize": {
+            "required": [
+              "id",
+              "title"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "quantityLeft": {
+                "type": "integer"
+              },
+              "shop": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "probability": {
+                "type": "integer"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -4712,7 +4757,11 @@
             "type": "string"
           },
           "redeemed": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
+          },
+          "prize": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"

@@ -600,7 +600,52 @@
             "type": "string"
           },
           "redeemed": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
+          },
+          "prize": {
+            "required": [
+              "id",
+              "title"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "quantityLeft": {
+                "type": "integer"
+              },
+              "shop": {
+                "type": "string"
+              },
+              "photo": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "probability": {
+                "type": "integer"
+              },
+              "published_at": {
+                "type": "string"
+              },
+              "created_by": {
+                "type": "string"
+              },
+              "updated_by": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -619,7 +664,11 @@
             "type": "string"
           },
           "redeemed": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": false
+          },
+          "prize": {
+            "type": "string"
           },
           "created_by": {
             "type": "string"
