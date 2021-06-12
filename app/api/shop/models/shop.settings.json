@@ -41,7 +41,7 @@
     },
     "prizes": {
       "via": "shop",
-      "collection": "price"
+      "collection": "prizes"
     }
   }
 }

@@ -2,48 +2,56 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/prices",
-      "handler": "price.find",
+      "path": "/prizes",
+      "handler": "prizes.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/prices/count",
-      "handler": "price.count",
+      "path": "/prizes/winner",
+      "handler": "prizes.getWinner",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/prices/:id",
-      "handler": "price.findOne",
+      "path": "/prizes/count",
+      "handler": "prizes.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/prizes/:id",
+      "handler": "prizes.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/prices",
-      "handler": "price.create",
+      "path": "/prizes",
+      "handler": "prizes.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/prices/:id",
-      "handler": "price.update",
+      "path": "/prizes/:id",
+      "handler": "prizes.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/prices/:id",
-      "handler": "price.delete",
+      "path": "/prizes/:id",
+      "handler": "prizes.delete",
       "config": {
         "policies": []
       }

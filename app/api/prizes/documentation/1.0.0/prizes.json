@@ -1,18 +1,18 @@
 {
   "paths": {
-    "/prices": {
+    "/prizes": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find all the prizes's records",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve prizes document(s)",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Price"
+                    "$ref": "#/components/schemas/Prizes"
                   }
                 }
               }
@@ -51,7 +51,7 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "parameters": [
           {
@@ -194,14 +194,14 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new record",
+        "description": "Create a new prizes record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve prizes document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Price"
+                  "$ref": "#/components/schemas/Prizes"
                 }
               }
             }
@@ -239,7 +239,7 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "requestBody": {
           "description": "",
@@ -247,20 +247,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPrice"
+                "$ref": "#/components/schemas/NewPrizes"
               }
             }
           }
         }
       }
     },
-    "/prices/count": {
+    "/prizes/count": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Retrieve the numver of prizes documents",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve prizes document(s)",
             "content": {
               "application/json": {
                 "schema": {
@@ -306,22 +306,22 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "parameters": []
       }
     },
-    "/prices/{id}": {
+    "/prizes/{id}": {
       "get": {
         "deprecated": false,
-        "description": "",
+        "description": "Find one prizes record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve prizes document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Price"
+                  "$ref": "#/components/schemas/Prizes"
                 }
               }
             }
@@ -359,7 +359,7 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "parameters": [
           {
@@ -376,14 +376,14 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a record",
+        "description": "Update a single prizes record",
         "responses": {
           "200": {
-            "description": "response",
+            "description": "Retrieve prizes document(s)",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Price"
+                  "$ref": "#/components/schemas/Prizes"
                 }
               }
             }
@@ -421,7 +421,7 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "requestBody": {
           "description": "",
@@ -429,7 +429,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPrice"
+                "$ref": "#/components/schemas/NewPrizes"
               }
             }
           }
@@ -449,10 +449,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a record",
+        "description": "Delete a single prizes record",
         "responses": {
           "200": {
-            "description": "deletes a single record based on the ID supplied",
+            "description": "deletes a single prizes based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -495,7 +495,7 @@
         },
         "summary": "",
         "tags": [
-          "Price"
+          "Prizes"
         ],
         "parameters": [
           {
@@ -510,19 +510,77 @@
           }
         ]
       }
+    },
+    "/prizes/winner": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "Retrieve prizes document(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Prizes"
+        ],
+        "parameters": []
+      }
     }
   },
   "components": {
     "schemas": {
-      "Price": {
+      "Prizes": {
         "required": [
-          "id"
+          "id",
+          "title"
         ],
         "properties": {
           "id": {
             "type": "string"
           },
-          "name": {
+          "title": {
             "type": "string"
           },
           "description": {
@@ -531,72 +589,8 @@
           "quantity": {
             "type": "integer"
           },
-          "picture": {
-            "required": [
-              "id",
-              "name",
-              "hash",
-              "mime",
-              "size",
-              "url",
-              "provider"
-            ],
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "alternativeText": {
-                "type": "string"
-              },
-              "caption": {
-                "type": "string"
-              },
-              "width": {
-                "type": "integer"
-              },
-              "height": {
-                "type": "integer"
-              },
-              "formats": {
-                "type": "object"
-              },
-              "hash": {
-                "type": "string"
-              },
-              "ext": {
-                "type": "string"
-              },
-              "mime": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "previewUrl": {
-                "type": "string"
-              },
-              "provider": {
-                "type": "string"
-              },
-              "provider_metadata": {
-                "type": "object"
-              },
-              "related": {
-                "type": "string"
-              },
-              "created_by": {
-                "type": "string"
-              },
-              "updated_by": {
-                "type": "string"
-              }
-            }
+          "quantityLeft": {
+            "type": "integer"
           },
           "shop": {
             "required": [
@@ -641,7 +635,77 @@
               }
             }
           },
-          "quantityLeft": {
+          "photo": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "probability": {
             "type": "integer"
           },
           "published_at": {
@@ -650,9 +714,12 @@
           }
         }
       },
-      "NewPrice": {
+      "NewPrizes": {
+        "required": [
+          "title"
+        ],
         "properties": {
-          "name": {
+          "title": {
             "type": "string"
           },
           "description": {
@@ -661,10 +728,13 @@
           "quantity": {
             "type": "integer"
           },
+          "quantityLeft": {
+            "type": "integer"
+          },
           "shop": {
             "type": "string"
           },
-          "quantityLeft": {
+          "probability": {
             "type": "integer"
           },
           "published_at": {
@@ -683,7 +753,7 @@
   },
   "tags": [
     {
-      "name": "Price"
+      "name": "Prizes"
     }
   ]
 }

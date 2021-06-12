@@ -608,13 +608,14 @@
             "type": "array",
             "items": {
               "required": [
-                "id"
+                "id",
+                "title"
               ],
               "properties": {
                 "id": {
                   "type": "string"
                 },
-                "name": {
+                "title": {
                   "type": "string"
                 },
                 "description": {
@@ -623,13 +624,19 @@
                 "quantity": {
                   "type": "integer"
                 },
-                "picture": {
-                  "type": "string"
+                "quantityLeft": {
+                  "type": "integer"
                 },
                 "shop": {
                   "type": "string"
                 },
-                "quantityLeft": {
+                "photo": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "probability": {
                   "type": "integer"
                 },
                 "published_at": {

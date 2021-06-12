@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "prizes",
   "info": {
-    "name": "Prize",
+    "name": "Prizes",
     "description": ""
   },
   "options": {
@@ -10,34 +10,38 @@
     "timestamps": true,
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
-    "name": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "required": true
     },
     "description": {
-      "type": "text"
+      "type": "richtext"
     },
     "quantity": {
       "type": "biginteger"
     },
-    "picture": {
-      "model": "file",
+    "quantityLeft": {
+      "type": "biginteger",
+      "min": "0"
+    },
+    "shop": {
+      "model": "shop",
+      "via": "prizes"
+    },
+    "photo": {
+      "collection": "file",
       "via": "related",
       "allowedTypes": [
-        "images",
         "files",
+        "images",
         "videos"
       ],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
     },
-    "shop": {
-      "via": "prizes",
-      "model": "shop"
-    },
-    "quantityLeft": {
+    "probability": {
       "type": "integer"
     }
   }

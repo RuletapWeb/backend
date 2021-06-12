@@ -12,9 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "prize": {
-      "model": "price"
-    },
     "shop": {
       "model": "shop"
     },
