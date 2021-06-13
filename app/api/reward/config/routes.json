@@ -15,6 +15,13 @@
       "config": {
         "policies": []
       }
+    },{
+      "method": "GET",
+      "path": "/rewards/byuser",
+      "handler": "reward.findByUser",
+      "config": {
+        "policies": []
+      }
     },
     {
       "method": "GET",
