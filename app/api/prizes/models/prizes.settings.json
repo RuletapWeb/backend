@@ -19,11 +19,13 @@
       "type": "richtext"
     },
     "quantity": {
-      "type": "biginteger"
+      "type": "biginteger",
+      "private": true
     },
     "quantityLeft": {
       "type": "biginteger",
-      "min": "1"
+      "min": "1",
+      "private": true
     },
     "shop": {
       "model": "shop",
@@ -42,7 +44,8 @@
       "pluginOptions": {}
     },
     "probability": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     }
   }
 }
