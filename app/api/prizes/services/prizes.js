@@ -24,7 +24,7 @@ async function craeteReward(user, prize){
         "prize": prize,
         "token": makeToken(10),
     };
-    return strapi.query('reward').create(body)
+    return strapi.services.reward.create(body)
 }
 
 module.exports = {
@@ -61,7 +61,9 @@ module.exports = {
                     lastPlayed: Date.now(),
                 }    
             )
-            reward = await craeteReward(user,winner)
+            reward = await craeteReward(user,winner);
+            // Send an email to validate his subscriptions.
+            strapi.services.email.send('ruletap.service@gmail.com', user.email, 'Welcome', '...');
             return sanitizeEntity(reward, { model: strapi.models.reward });
         } else {
             return { message: "No prizes available", code: 404};

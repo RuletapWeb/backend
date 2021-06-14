@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "nodemailer": "^6.6.1",
     "strapi": "3.6.2",
     "strapi-admin": "3.6.2",
     "strapi-connector-mongoose": "3.6.2",
