@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/rewards/byuser/",
+      "handler": "reward.findLastByUser",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/rewards/:id",
       "handler": "reward.findOne",
       "config": {

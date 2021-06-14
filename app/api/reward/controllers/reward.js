@@ -1,8 +1,11 @@
-'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {};
+module.exports = {
+    async findLastByUser(ctx) {
+        if(ctx.query["email"]){
+            email = ctx.query["email"];
+        } else {
+            return { message: "Missing user email", code: 400}
+        }   
+        return strapi.services.reward.LastByUser(email);
+      },
+};
