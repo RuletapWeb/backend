@@ -1,25 +1,45 @@
-const nodemailer = require('nodemailer');
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var handlebars = require('handlebars');
+var fs = require('fs');
 
-// Create reusable transporter object using SMTP transport.
-const transporter = nodemailer.createTransport({
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+        if (err) {
+            throw err;
+            callback(err);
+        }
+        else {
+            callback(null, html);
+        }
+    });
+};
+
+smtpTransport = nodemailer.createTransport({
   service: 'Gmail',
   auth: {
-    user: 'RuleTAP.service@gmail.com',
-    pass: 'eJZmMM51Uw5r',
+    user: strapi.config.get('server.email.creds.email', 'defaultValueIfUndefined'),
+    pass: strapi.config.get('server.email.creds.password', 'defaultValueIfUndefined'),
   },
 });
 
 module.exports = {
-  send: (from, to, subject, text) => {
-    // Setup e-mail data.
-    const options = {
-      from,
-      to,
-      subject,
-      text,
-    };
-
-    // Return a promise of the function that sends the email.
-    return transporter.sendMail(options);
+  async send(ctx) {
+    readHTMLFile(strapi.config.get('server.email.templatePath', 'defaultValueIfUndefined'), function(err, html) {
+      var template = handlebars.compile(html);
+      var htmlToSend = template(ctx);
+      var mailOptions = {
+          from: strapi.config.get('server.email.creds.email', 'defaultValueIfUndefined'),
+          to : ctx.playerEmail,
+          subject : strapi.config.get('server.email.subject', 'defaultValueIfUndefined'),
+          html : htmlToSend
+      };
+      smtpTransport.sendMail(mailOptions, function (error, response) {
+          if (error) {
+              console.log(error);
+              callback(error);
+          }
+      });
+    });
   },
 };

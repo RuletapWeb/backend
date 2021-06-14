@@ -1,4 +1,4 @@
-const { sanitizeEntity } = require('strapi-utils');
+const { sanitizeEntity, env } = require('strapi-utils');
 
 // Retorna un número aleatorio entre min (incluido) y max (excluido)
 function getRandomArbitrary(min, max) {
@@ -7,7 +7,7 @@ function getRandomArbitrary(min, max) {
 
 function makeToken(length) {
     var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var characters       = strapi.config.get('server.token.chars', 'defaultValueIfUndefined');
     var charactersLength = characters.length;
     for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -22,7 +22,7 @@ async function craeteReward(user, prize){
         "player": user,
         "shop": shop,
         "prize": prize,
-        "token": makeToken(10),
+        "token": makeToken(strapi.config.get('server.token.length', 'defaultValueIfUndefined')),
     };
     return strapi.services.reward.create(body)
 }
@@ -37,6 +37,7 @@ module.exports = {
         }
         let entities;
         entities = await strapi.services.prizes.find()
+
         // Create array based in each prize probability
         prize_pool = []
         entities.forEach(
@@ -62,8 +63,17 @@ module.exports = {
                 }    
             )
             reward = await craeteReward(user,winner);
-            // Send an email to validate his subscriptions.
-            strapi.services.email.send('ruletap.service@gmail.com', user.email, 'Welcome', '...');
+            var replacements = {
+                token: reward.token,
+                playerEmail: ctx.query["email"],
+                shop: reward.shop.name,
+                shopAddress: reward.shop.address,
+                reward: reward.prize.title
+            };
+
+            // Sends email to player with token and prize information
+            strapi.services.email.send(replacements);
+            
             return sanitizeEntity(reward, { model: strapi.models.reward });
         } else {
             return { message: "No prizes available", code: 404};
