@@ -15,10 +15,11 @@
       "config": {
         "policies": []
       }
-    },{
+    },
+    {
       "method": "GET",
-      "path": "/rewards/byuser",
-      "handler": "reward.findByUser",
+      "path": "/rewards/byuser/",
+      "handler": "reward.findLastByUser",
       "config": {
         "policies": []
       }

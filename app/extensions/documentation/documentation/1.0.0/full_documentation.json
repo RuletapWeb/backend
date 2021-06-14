@@ -14,11 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-<<<<<<< HEAD
-    "x-generation-date": "06/13/2021 10:25:13 PM"
-=======
-    "x-generation-date": "06/12/2021 9:08:34 AM"
->>>>>>> 6331437542e1a8a07dc9257b84d80c8e362540d4
+    "x-generation-date": "06/14/2021 1:39:50 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -27,12 +23,12 @@
   },
   "servers": [
     {
-      "url": "http://52.91.25.147",
+      "url": "http://localhost:1337",
       "description": "Development server"
     },
     {
-      "url": "http://localhost",
-      "description": "Local server"
+      "url": "YOUR_STAGING_SERVER",
+      "description": "Staging server"
     },
     {
       "url": "YOUR_PRODUCTION_SERVER",
@@ -1439,7 +1435,7 @@
         "parameters": []
       }
     },
-    "/rewards/byuser": {
+    "/rewards/byuser/": {
       "get": {
         "deprecated": false,
         "description": "",

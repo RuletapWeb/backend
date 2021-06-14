@@ -311,7 +311,7 @@
         "parameters": []
       }
     },
-    "/rewards/byuser": {
+    "/rewards/byuser/": {
       "get": {
         "deprecated": false,
         "description": "",
