@@ -255,9 +255,9 @@
       }
     },
     "/prizes/winner/": {
-      "get": {
+      "post": {
         "deprecated": false,
-        "description": "",
+        "description": "Create a new prizes record",
         "responses": {
           "200": {
             "description": "Retrieve prizes document(s)",
@@ -308,7 +308,21 @@
         "tags": [
           "Prizes"
         ],
-        "parameters": []
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/prizes/count": {

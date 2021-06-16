@@ -9,7 +9,7 @@
       }
     },
     {
-      "method": "GET",
+      "method": "POST",
       "path": "/prizes/winner/",
       "handler": "prizes.getWinner",
       "config": {
