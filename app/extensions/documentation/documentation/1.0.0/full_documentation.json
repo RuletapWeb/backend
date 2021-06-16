@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/14/2021 1:48:46 AM"
+    "x-generation-date": "06/16/2021 12:38:51 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -24,15 +24,11 @@
   "servers": [
     {
       "url": "http://52.91.25.147",
-      "description": "Development server"
+      "description": "Development Environment"
     },
     {
       "url": "http://localhost",
-      "description": "Local server"
-    },
-    {
-      "url": "YOUR_PRODUCTION_SERVER",
-      "description": "Production server"
+      "description": "Local Environment"
     }
   ],
   "externalDocs": {
@@ -811,9 +807,9 @@
       }
     },
     "/prizes/winner/": {
-      "get": {
+      "post": {
         "deprecated": false,
-        "description": "",
+        "description": "Create a new prizes record",
         "responses": {
           "200": {
             "description": "Retrieve prizes document(s)",
@@ -864,7 +860,21 @@
         "tags": [
           "Prizes"
         ],
-        "parameters": []
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "foo": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/prizes/count": {

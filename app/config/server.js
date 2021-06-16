@@ -1,7 +1,6 @@
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
   port: env.int('PORT', 1337),
-  test: "this is a test value",
   email: {
     creds: {
       email: "RuleTAP.service@gmail.com",
@@ -13,6 +12,11 @@ module.exports = ({ env }) => ({
   token:{
     chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
     length: 10
+  },
+  respones:{
+    playable: 1,
+    redeemed: 2,
+    redeemable: 3
   },
   admin: {
     auth: {

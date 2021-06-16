@@ -1,10 +1,13 @@
-const { sanitizeEntity, env } = require('strapi-utils');
+const _ = require('underscore');
+const fs = require('fs');
+var handlebars = require('handlebars');
 
-// Retorna un número aleatorio entre min (incluido) y max (excluido)
+// Returns a random integer between a min (included) and a max (excluded)
 function getRandomArbitrary(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
+// Creates a token based in the environment configuration for characters
 function makeToken(length) {
     var result           = '';
     var characters       = strapi.config.get('server.token.chars', 'defaultValueIfUndefined');
@@ -15,6 +18,7 @@ function makeToken(length) {
    return result;
 }
 
+// Creates a Reward linked to the user, token, prize and the shop
 async function craeteReward(user, prize){
     email = prize["shop"]["email"]
     shop = await strapi.services.shop.findOne({ email });
@@ -27,28 +31,65 @@ async function craeteReward(user, prize){
     return strapi.services.reward.create(body)
 }
 
-module.exports = {
-    async getWinner(ctx) {
-        if(ctx.query["email"]){
-            email = ctx.query["email"];
-            user = await strapi.services.player.findOne({ email });
-        } else {
-            return { message: "Missing user email", code: 400}
+var readHTMLFile = function(path, callback) {
+    fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
+        if (err) {
+            throw err;
+            callback(err);
         }
-        let entities;
-        entities = await strapi.services.prizes.find()
+        else {
+            callback(null, html);
+        }
+    });
+}
+
+async function sendEmail(reward) {
+    readHTMLFile(strapi.config.get('server.email.templatePath', 'defaultValueIfUndefined'), async (err, html) => {
+        var template = handlebars.compile(html);
+        var replacements = {
+            token: reward.token,
+            playerEmail: reward.player.email,
+            shop: reward.shop.name,
+            shopAddress: reward.shop.address,
+            reward: reward.prize.title
+        };
+        var htmlToSend = template(replacements);
+        const emailTemplate = {
+            subject: 'TAP - Feliciationes <%= user.name %>!',
+            text: `.`,
+            html: htmlToSend,
+        };
+        strapi.plugins['email'].services.email.sendTemplatedEmail(
+            {
+                to: reward.player.email,
+            },
+            emailTemplate,
+            {
+                user: _.pick(user, ['username', 'email', 'name', 'lastname']),
+            }
+        );
+    });
+}
+
+module.exports = {
+    async getWinner(email) {
+        user = await strapi.services.player.findOne({ email });
 
         // Create array based in each prize probability
-        prize_pool = []
-        entities.forEach(
-            function(currentValue, currentIndex, listObj) {
-                if(currentValue["quantityLeft"] > 0){
-                    for ( i = 0; i < currentValue["probability"]; i++){
-                            prize_pool.push(currentValue);
-                    }
+        let prizes;
+        prizes = await strapi.services.prizes.find()
+        const prize_pool = []
+        prizes.forEach(   function(currentValue) {
+            if(currentValue["quantityLeft"] > 0){
+                for ( i = 0; i < currentValue["probability"]; i++){
+                    prize_pool.push(currentValue);
                 }
-            });
-        if(prize_pool.length > 1 ){
+            }
+        });
+
+        console.log("here?")
+
+        if(prize_pool.length > 0 ){
             winner = prize_pool[getRandomArbitrary(0,prize_pool.length)];
             await strapi.query('prizes').update(
                 { id: winner["id"]},
@@ -63,18 +104,14 @@ module.exports = {
                 }    
             )
             reward = await craeteReward(user,winner);
-            var replacements = {
-                token: reward.token,
-                playerEmail: ctx.query["email"],
-                shop: reward.shop.name,
-                shopAddress: reward.shop.address,
-                reward: reward.prize.title
-            };
 
             // Sends email to player with token and prize information
-            strapi.services.email.send(replacements);
-            
-            return sanitizeEntity(reward, { model: strapi.models.reward });
+            sendEmail(reward)
+
+            // Adding status to response
+            reward.status = strapi.config.get('server.respones.playable', 'defaultValueIfUndefined');
+
+            return reward;
         } else {
             return { message: "No prizes available", code: 404};
         }
