@@ -23,16 +23,12 @@
   },
   "servers": [
     {
-      "url": "http://localhost:1337",
-      "description": "Development server"
+      "url": "http://52.91.25.147",
+      "description": "Local Environment"
     },
     {
-      "url": "YOUR_STAGING_SERVER",
-      "description": "Staging server"
-    },
-    {
-      "url": "YOUR_PRODUCTION_SERVER",
-      "description": "Production server"
+      "url": "http://localhost",
+      "description": "Development Environment"
     }
   ],
   "externalDocs": {
