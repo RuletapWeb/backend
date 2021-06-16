@@ -24,11 +24,11 @@
   "servers": [
     {
       "url": "http://52.91.25.147",
-      "description": "Local Environment"
+      "description": "Development Environment"
     },
     {
       "url": "http://localhost",
-      "description": "Development Environment"
+      "description": "Local Environment"
     }
   ],
   "externalDocs": {
