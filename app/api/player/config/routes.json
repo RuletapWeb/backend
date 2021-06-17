@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "POST",
+      "path": "/players/register",
+      "handler": "player.playerRegistration",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/players",
       "handler": "player.find",

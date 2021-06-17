@@ -28,7 +28,7 @@ async function craeteReward(user, prize){
         "prize": prize,
         "token": makeToken(strapi.config.get('server.token.length', 'defaultValueIfUndefined')),
     };
-    return strapi.services.reward.create(body)
+    return strapi.services.reward.create(body);
 }
 
 var readHTMLFile = function(path, callback) {
@@ -55,7 +55,7 @@ async function sendEmail(reward) {
         };
         var htmlToSend = template(replacements);
         const emailTemplate = {
-            subject: 'TAP - Feliciationes <%= user.name %>!',
+            subject: strapi.config.get('server.email.subject', 'defaultValueIfUndefined'),
             text: `.`,
             html: htmlToSend,
         };
@@ -87,8 +87,6 @@ module.exports = {
             }
         });
 
-        console.log("here?")
-
         if(prize_pool.length > 0 ){
             winner = prize_pool[getRandomArbitrary(0,prize_pool.length)];
             await strapi.query('prizes').update(
@@ -106,7 +104,7 @@ module.exports = {
             reward = await craeteReward(user,winner);
 
             // Sends email to player with token and prize information
-            sendEmail(reward)
+            // sendEmail(reward)
 
             // Adding status to response
             reward.status = strapi.config.get('server.respones.playable', 'defaultValueIfUndefined');
