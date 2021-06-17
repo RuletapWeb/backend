@@ -20,12 +20,15 @@
     },
     "quantity": {
       "type": "biginteger",
-      "private": true
+      "private": true,
+      "required": true,
+      "min": "1"
     },
     "quantityLeft": {
       "type": "biginteger",
       "min": "1",
-      "private": true
+      "private": true,
+      "required": true
     },
     "shop": {
       "model": "shop",
@@ -45,7 +48,12 @@
     },
     "probability": {
       "type": "integer",
-      "private": true
+      "private": true,
+      "unique": false,
+      "required": true,
+      "min": 1,
+      "max": 10,
+      "default": 1
     }
   }
 }

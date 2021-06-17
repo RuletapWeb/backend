@@ -517,7 +517,10 @@
       "Prizes": {
         "required": [
           "id",
-          "title"
+          "title",
+          "quantity",
+          "quantityLeft",
+          "probability"
         ],
         "properties": {
           "id": {
@@ -650,7 +653,10 @@
       },
       "NewPrizes": {
         "required": [
-          "title"
+          "title",
+          "quantity",
+          "quantityLeft",
+          "probability"
         ],
         "properties": {
           "title": {
@@ -669,7 +675,8 @@
             "type": "string"
           },
           "probability": {
-            "type": "integer"
+            "type": "integer",
+            "default": 1
           },
           "published_at": {
             "type": "string",

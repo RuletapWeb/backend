@@ -677,7 +677,10 @@
           "prize": {
             "required": [
               "id",
-              "title"
+              "title",
+              "quantity",
+              "quantityLeft",
+              "probability"
             ],
             "properties": {
               "id": {

@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/17/2021 3:39:00 AM"
+    "x-generation-date": "06/17/2021 3:56:58 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4517,7 +4517,10 @@
       "Prizes": {
         "required": [
           "id",
-          "title"
+          "title",
+          "quantity",
+          "quantityLeft",
+          "probability"
         ],
         "properties": {
           "id": {
@@ -4650,7 +4653,10 @@
       },
       "NewPrizes": {
         "required": [
-          "title"
+          "title",
+          "quantity",
+          "quantityLeft",
+          "probability"
         ],
         "properties": {
           "title": {
@@ -4669,7 +4675,8 @@
             "type": "string"
           },
           "probability": {
-            "type": "integer"
+            "type": "integer",
+            "default": 1
           },
           "published_at": {
             "type": "string",
@@ -4775,7 +4782,10 @@
           "prize": {
             "required": [
               "id",
-              "title"
+              "title",
+              "quantity",
+              "quantityLeft",
+              "probability"
             ],
             "properties": {
               "id": {
@@ -4942,7 +4952,10 @@
             "items": {
               "required": [
                 "id",
-                "title"
+                "title",
+                "quantity",
+                "quantityLeft",
+                "probability"
               ],
               "properties": {
                 "id": {
