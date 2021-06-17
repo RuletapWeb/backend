@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/rewards/byshop/",
+      "handler": "reward.findByShop",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/rewards/:id",
       "handler": "reward.findOne",

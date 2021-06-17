@@ -7,26 +7,58 @@ function compareDates(string1,string2){
     return date1 < date2;
 }
 
-module.exports = {
-    async LastByUser(email) {     
-        player = await strapi.services.player.findOne({ email });
+async function LastByUser(email) {     
+    player = await strapi.services.player.findOne({ email });
 
-        let rewards;
-        lastReward = await strapi.services.reward.findOne({ player });
+    let rewards;
+    lastReward = await strapi.services.reward.findOne({ player });
+    rewards = await strapi.services.reward.find();
+    if(rewards){
+        rewards.forEach(
+            function(currentValue) {
+                if(currentValue["player"]["id"] == player["id"]){
+                    if(compareDates(lastReward["updatedAt"],currentValue["updatedAt"])){
+                        lastReward = currentValue;
+                    }
+                }
+            }
+        );
+        return sanitizeEntity(lastReward, { model: strapi.models.reward });
+    } else {
+        return { message: "No rewards available at the moment", code: 404}
+    }
+}
+
+async function rewardByShop(email){
+    shop = await strapi.services.shop.findOne({ email });
+    if(shop){
+        console.log(shop.name);
         rewards = await strapi.services.reward.find();
+        let response = {
+            redeemed: 0,
+            available: 0
+        };
         if(rewards){
             rewards.forEach(
-                function(currentValue, currentIndex, listObj) {
-                    if(currentValue["player"]["id"] == player["id"]){
-                        if(compareDates(lastReward["updatedAt"],currentValue["updatedAt"])){
-                            lastReward = currentValue;
+                function(currentValue) {
+                    if(currentValue.shop.email == email){
+                        if(currentValue.redeemed){
+                            response.redeemed += 1;
+                        } else {
+                            response.available += 1;
                         }
                     }
                 }
-            );
-            return sanitizeEntity(lastReward, { model: strapi.models.reward });
+            )
+            return response;    
         } else {
-            return { message: "No rewards available at the moment", code: 404}
+            return null;
         }
-      },
+    } else {
+        return null;
+    }
+}
+
+module.exports = {
+    LastByUser,rewardByShop
 };
