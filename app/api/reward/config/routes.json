@@ -17,14 +17,6 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/rewards/byuser/",
-      "handler": "reward.findLastByUser",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "POST",
       "path": "/rewards/byshop/",
       "handler": "reward.findByShop",

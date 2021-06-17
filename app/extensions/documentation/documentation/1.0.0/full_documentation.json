@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "06/17/2021 1:51:42 AM"
+    "x-generation-date": "06/17/2021 3:39:00 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -881,77 +881,6 @@
         }
       }
     },
-    "/prizes/winner/": {
-      "post": {
-        "deprecated": false,
-        "description": "Create a new prizes record",
-        "responses": {
-          "200": {
-            "description": "Retrieve prizes document(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Prizes"
-        ],
-        "requestBody": {
-          "description": "",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "properties": {
-                  "foo": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/prizes/count": {
       "get": {
         "deprecated": false,
@@ -1476,63 +1405,6 @@
                   "properties": {
                     "count": {
                       "type": "integer"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        },
-        "summary": "",
-        "tags": [
-          "Reward"
-        ],
-        "parameters": []
-      }
-    },
-    "/rewards/byuser/": {
-      "get": {
-        "deprecated": false,
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "foo": {
-                      "type": "string"
                     }
                   }
                 }

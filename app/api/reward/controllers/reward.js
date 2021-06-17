@@ -1,28 +1,27 @@
+/* -------------------------------------------------------------------------- */
+/*      Custom handler to retrieve the ammount of reward, by Shop email,      */
+/*                    that HAVE and HAVE NOT been redeemed.                   */
+/* -------------------------------------------------------------------------- */
 
-module.exports = {
-    async findLastByUser(ctx) {
-        if(ctx.query["email"]){
-            email = ctx.query["email"];
-        } else {
-            return { message: "Missing user email", code: 400}
-        }   
-        return strapi.services.reward.LastByUser(email);
-      },
-      async findByShop(ctx) {
-        if(ctx.request.body.email){
-            rewardsbyShop = await strapi.services.reward.rewardByShop(ctx.request.body.email);
-            console.log(rewardsbyShop)
-            if(rewardsbyShop != null){
-                return rewardsbyShop;
-            } else {
-                ctx.send({
-                    message: 'Rewards not found'
-                }, 404);
-            }
+async function findByShop(ctx) {
+    if(ctx.request.body.email){
+        rewardsbyShop = await strapi.services.reward.rewardByShop(ctx.request.body.email);
+        console.log(rewardsbyShop)
+        if(rewardsbyShop != null){
+            return rewardsbyShop;
         } else {
             ctx.send({
-                message: 'Email is missing'
-            }, 400);
-        }   
-      }
+                message: 'Rewards/Email not found'
+            }, 404);
+        }
+    } else {
+        ctx.send({
+            message: 'Email is missing'
+        }, 400);
+    }   
+  }
+
+
+module.exports = {
+    findByShop
 };

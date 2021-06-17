@@ -9,14 +9,6 @@
       }
     },
     {
-      "method": "POST",
-      "path": "/prizes/winner/",
-      "handler": "prizes.getWinner",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "GET",
       "path": "/prizes/count",
       "handler": "prizes.count",

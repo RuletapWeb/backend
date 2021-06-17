@@ -9,7 +9,7 @@ function compareDates(string1,string2){
 
 async function LastByUser(email) {     
     player = await strapi.services.player.findOne({ email });
-
+    console.log(strapi.config.get('plugins.email.providerOptions.apiKey', 'defaultValueIfUndefined'))
     let rewards;
     lastReward = await strapi.services.reward.findOne({ player });
     rewards = await strapi.services.reward.find();
@@ -23,7 +23,12 @@ async function LastByUser(email) {
                 }
             }
         );
-        return sanitizeEntity(lastReward, { model: strapi.models.reward });
+        if(lastReward.redeemed){
+            lastReward.status = strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
+        } else {
+            lastReward.status = strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
+        }
+        return lastReward;
     } else {
         return { message: "No rewards available at the moment", code: 404}
     }

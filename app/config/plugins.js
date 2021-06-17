@@ -3,12 +3,12 @@ module.exports = ({ env }) => ({
     email: {
       provider: 'sendgrid',
       providerOptions: {
-        apiKey: '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',
+        apiKey: env('SENGRID_API_KEY',)
       },
       settings: {
-        defaultFrom: 'ruletap.service@gmail.com',
-        defaultReplyTo: 'ruletap.service@gmail.com',
-        testAddress: 'lautaro.baltar@gmail.com',
+        defaultFrom: env('SENGRID_EMAIL_FROM',),
+        defaultReplyTo: env('SENGRID_DEFAULT_REPLY',),
+        testAddress: env('SENGRID_TEST_ACCOUNT',),
       },
     },
     // ...
