@@ -18,6 +18,9 @@ module.exports = ({ env }) => ({
     redeemed: 2,
     redeemable: 3
   },
+  tap:{
+    loginURL: env('LOGIN_URL')
+  },
   admin: {
     auth: {
       secret: env('ADMIN_JWT_SECRET', 'fca46d06e0be08f2dd31f686891b6b90'),
