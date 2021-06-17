@@ -9,7 +9,6 @@ function compareDates(string1,string2){
 
 async function LastByUser(email) {     
     player = await strapi.services.player.findOne({ email });
-    console.log(strapi.config.get('plugins.email.providerOptions.apiKey', 'defaultValueIfUndefined'))
     let rewards;
     lastReward = await strapi.services.reward.findOne({ player });
     rewards = await strapi.services.reward.find();
@@ -24,9 +23,9 @@ async function LastByUser(email) {
             }
         );
         if(lastReward.redeemed){
-            lastReward.status = strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
+            lastReward.status = await strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
         } else {
-            lastReward.status = strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
+            lastReward.status = await strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
         }
         return lastReward;
     } else {
@@ -37,7 +36,6 @@ async function LastByUser(email) {
 async function rewardByShop(email){
     shop = await strapi.services.shop.findOne({ email });
     if(shop){
-        console.log(shop.name);
         rewards = await strapi.services.reward.find();
         let response = {
             redeemed: 0,
@@ -69,15 +67,11 @@ async function redeem(ctx){
     let reward = await strapi.services.reward.findOne({ token });
     if(reward){
         if(reward.shop.email == ctx.request.body.shop){
-            console.log("tienda correcta")
             if(reward.player.email == ctx.request.body.email){
-                console.log("email correcto")
                 if(reward.redeemed){
-                    console.log("redeemed")
-                    reward.status = strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
+                    reward.status = await strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
                     return reward;
                 } else {
-                    console.log("available")
                     await strapi.services.reward.update(
                         { id: reward["id"]},
                         {
@@ -85,8 +79,7 @@ async function redeem(ctx){
                         }    
                     )
                     output = await strapi.services.reward.findOne({ token });
-                    console.log("Output: "+output);
-                    output.status = strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
+                    output.status = await strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
                     return output;
                 }
             } else {

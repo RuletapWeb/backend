@@ -104,7 +104,7 @@ module.exports = {
             reward = await craeteReward(user,winner);
 
             // Sends email to player with token and prize information
-            // sendEmail(reward)
+            sendEmail(reward)
 
             // Adding status to response
             reward.status = strapi.config.get('server.respones.playable', 'defaultValueIfUndefined');

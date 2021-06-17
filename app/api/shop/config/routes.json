@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/shops/login",
+      "handler": "shop.login",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/shops/:id",
       "handler": "shop.update",
