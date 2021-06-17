@@ -64,6 +64,50 @@ async function rewardByShop(email){
     }
 }
 
+async function redeem(ctx){
+    let token = ctx.request.body.token;
+    let reward = await strapi.services.reward.findOne({ token });
+    if(reward){
+        if(reward.shop.email == ctx.request.body.shop){
+            console.log("tienda correcta")
+            if(reward.player.email == ctx.request.body.email){
+                console.log("email correcto")
+                if(reward.redeemed){
+                    console.log("redeemed")
+                    reward.status = strapi.config.get('server.respones.redeemed', 'defaultValueIfUndefined');
+                    return reward;
+                } else {
+                    console.log("available")
+                    await strapi.services.reward.update(
+                        { id: reward["id"]},
+                        {
+                            redeemed: true,
+                        }    
+                    )
+                    output = await strapi.services.reward.findOne({ token });
+                    console.log("Output: "+output);
+                    output.status = strapi.config.get('server.respones.redeemable', 'defaultValueIfUndefined');
+                    return output;
+                }
+            } else {
+                ctx.send({
+                    message: 'Email incorrect'
+                }, 400);
+            }
+        } else {
+            ctx.send({
+                message: 'Incorrect Store'
+            }, 400);
+        }
+    } else {
+        ctx.send({
+            message: 'Incorrect Token'
+        }, 400); 
+    }
+}
+
 module.exports = {
-    LastByUser,rewardByShop
+    LastByUser,
+    rewardByShop,
+    redeem
 };

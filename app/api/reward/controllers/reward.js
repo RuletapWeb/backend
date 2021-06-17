@@ -19,9 +19,19 @@ async function findByShop(ctx) {
             message: 'Email is missing'
         }, 400);
     }   
-  }
+}
 
+async function redeem(ctx){
+    if(ctx.request.body.email && ctx.request.body.token){
+        return await strapi.services.reward.redeem(ctx);
+    } else {
+        ctx.send({
+            message: 'Missing EMAIL/TOKEN'
+        }, 400);
+    }
+}
 
 module.exports = {
-    findByShop
+    findByShop,
+    redeem
 };
