@@ -19,7 +19,7 @@ module.exports = ({ env }) => ({
     redeemable: 3
   },
   tap:{
-    loginURL: env('LOGIN_URL')
+    loginURL: env('TAP_LOGIN_URL')
   },
   admin: {
     auth: {

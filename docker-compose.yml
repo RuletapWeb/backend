@@ -17,6 +17,7 @@ services:
       SENGRID_EMAIL_FROM: ${SENGRID_EMAIL_FROM}
       SENGRID_DEFAULT_REPLY: ${SENGRID_DEFAULT_REPLY}
       SENGRID_TEST_ACCOUNT: ${SENGRID_TEST_ACCOUNT}
+      TAP_LOGIN_URL: ${TAP_LOGIN_URL}
     networks:
       - strapi-app-network
     volumes:

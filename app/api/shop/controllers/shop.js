@@ -1,8 +1,13 @@
-'use strict';
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
- * to customize this controller
- */
-
-module.exports = {};
+async function login(ctx){
+    if(ctx.request.body.email && ctx.request.body.password){
+        return await strapi.services.shop.login(ctx);
+    } else {
+        ctx.send({
+            message: 'Missing EMAIL/PASSWORD'
+        }, 400);
+    }
+}
+module.exports = {
+    login
+};
