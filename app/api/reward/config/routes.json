@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/rewards/redeem/",
+      "handler": "reward.redeem",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/rewards/:id",
       "handler": "reward.findOne",
