@@ -41,8 +41,6 @@ async function login(ctx) {
                     }
                 }
             }
-            const loginChinoHeader = loginResponse.headers.get('x-chino-token')
-            loginBody.user.chinoToken = loginChinoHeader
             return loginBody.user
         } catch (err) {
             console.warn(err)
