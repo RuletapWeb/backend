@@ -1,6 +1,7 @@
 /* ---------------------------- busqueda del user --------------------------- */
-async function userLookup(email) {
+async function userLookup(ctx) {
   //todo: validar igual email y telefono
+  email = ctx.request.body.email;
   let myUser = await strapi.services.player.findOne({
     email
   });
@@ -32,7 +33,7 @@ const playerRegistration = async (ctx) => {
 
   const email = ctx.request.body.email;
 
-  let user = await userLookup(email);
+  let user = await userLookup(ctx);
   let response;
 
   if (validateLastplayed(user)) {
