@@ -1,6 +1,11 @@
 const _ = require('underscore');
 const fs = require('fs');
-var handlebars = require('handlebars');
+const handlebars = require('handlebars');
+
+function validateEmail(email){
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
 const readHTMLFile = function(path, callback) {
     fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
@@ -42,5 +47,6 @@ async function sendEmail(reward) {
 }
 
 module.exports = {
-    sendEmail
+    sendEmail,
+    validateEmail
 }
