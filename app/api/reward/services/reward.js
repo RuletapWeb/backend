@@ -1,4 +1,3 @@
-const { sanitizeEntity } = require('strapi-utils');
 
 // compares to string dates and returns a boolean
 function compareDates(string1,string2){
@@ -99,8 +98,34 @@ async function redeem(ctx){
     }
 }
 
+// Creates a token based in the environment configuration for characters
+function makeToken(length = strapi.config.get('server.token.length', 'defaultValueIfUndefined')) {
+    var result           = '';
+    var characters       = strapi.config.get('server.token.chars', 'defaultValueIfUndefined');
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
+// Creates a Reward linked to the user, token, prize and the shop
+async function craeteReward(user, prize){
+    email = prize["shop"]["email"]
+    shop = await strapi.services.shop.findOne({ email });
+    body = {
+        "player": user,
+        "shop": shop,
+        "prize": prize,
+        "token": strapi.services.reward.makeToken(),
+    };
+    return strapi.services.reward.create(body);
+}
+
 module.exports = {
     LastByUser,
     rewardByShop,
-    redeem
+    redeem,
+    makeToken,
+    craeteReward
 };
