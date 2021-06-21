@@ -35,7 +35,6 @@ var readHTMLFile = function(path, callback) {
     fs.readFile(path, {encoding: 'utf-8'}, function (err, html) {
         if (err) {
             throw err;
-            callback(err);
         }
         else {
             callback(null, html);
@@ -104,7 +103,8 @@ module.exports = {
             reward = await craeteReward(user,winner);
 
             // Sends email to player with token and prize information
-            sendEmail(reward)
+            await strapi.services.email.sendEmail(reward)
+            // sendEmail(reward)
 
             // Adding status to response
             reward.status = strapi.config.get('server.respones.playable', 'defaultValueIfUndefined');
