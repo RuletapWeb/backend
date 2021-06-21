@@ -1,48 +1,21 @@
-/* ---------------------------- busqueda del user --------------------------- */
-async function userLookup(ctx) {
-  //todo: validar igual email y telefono
-  email = ctx.request.body.email;
-  let myUser = await strapi.services.player.findOne({
-    email
-  });
-
-  if (!myUser) {
-    let newUser = {
-      name: ctx.request.body.email.split('@')[0],
-      phone: ctx.request.body.phone,
-      email: ctx.request.body.email
-    };
-    myUser = await strapi.services.player.create(newUser);
-  }
-
-  return myUser;
-}
-
-/* ---------------------- chequear si puede o no jugar ---------------------- */
-function validateLastplayed(user) {
-       
-  let todayWeekAgo = new Date();
-  todayWeekAgo.setDate(todayWeekAgo.getDate() - 7);
-  todayWeekAgo = Date.parse(todayWeekAgo);
-  let userDate = Date.parse(user.lastPlayed);
-
-  return userDate < todayWeekAgo;
-}
-
 const playerRegistration = async (ctx) => {
+  let {email, phone} = ctx.request.body;
+  if(strapi.services.email.validateEmail(email) && strapi.services.player.validatePhone(phone)){
+    let user = await strapi.services.player.userLookup(ctx);
+    let response;
 
-  const email = ctx.request.body.email;
+    if (strapi.services.player.validateLastplayed(user)) {
+      response = await strapi.services.prizes.getWinner(user.email);
+    } else {
+      response = await strapi.services.reward.LastByUser(user.email);
+    }
 
-  let user = await userLookup(ctx);
-  let response;
-
-  if (validateLastplayed(user)) {
-    response = await strapi.services.prizes.getWinner(user.email);
+    return response;
   } else {
-    response = await strapi.services.reward.LastByUser(user.email);
+    ctx.send({
+      message: 'Invalid Email/Phone'
+    }, 400); 
   }
-
-  return response;
 };
 
 module.exports = {
