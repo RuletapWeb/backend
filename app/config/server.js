@@ -1,11 +1,8 @@
 module.exports = ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
+  host: env('HOST', 'strapi'),
   port: env.int('PORT', 1337),
+  url: 'https://develop.ruletap.tk/api',
   email: {
-    creds: {
-      email: "RuleTAP.service@gmail.com",
-      password: "eJZmMM51Uw5r",
-    },
     subject: "TAP - Tu premio!",
     templatePath: "/srv/app/public/email-tap.html"
   },
