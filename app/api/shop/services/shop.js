@@ -41,7 +41,9 @@ async function login(ctx) {
                     }
                 }
             }
-            return loginBody.user
+            const {email} = ctx.request.body;
+            let shop = await strapi.services.shop.findOne({ email });
+            return shop
         } catch (err) {
             console.warn(err)
             ctx.send({
