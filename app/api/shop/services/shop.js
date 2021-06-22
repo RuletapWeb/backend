@@ -25,14 +25,11 @@ async function login(ctx) {
             body: JSON.stringify({ email, password, ...defaultContext }),
         }
         try {
-            console.log(await strapi.config.get('server.tap.loginURL', 'defaultValueIfUndefined'))
             const loginResponse = await fetch(await strapi.config.get('server.tap.loginURL', 'defaultValueIfUndefined'), requestOptions)
             if (!loginResponse.ok) {
-                console.log("OK")
                 const text = await loginResponse.text()
                 throw new Error(text)
             }
-            console.log("LOGIN OK")
             const loginBody = await loginResponse.json()
             if(loginBody){
                 if(loginBody.user){

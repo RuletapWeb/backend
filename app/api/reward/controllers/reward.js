@@ -6,7 +6,6 @@
 async function findByShop(ctx) {
     if(ctx.request.body.email){
         rewardsbyShop = await strapi.services.reward.rewardByShop(ctx.request.body.email);
-        console.log(rewardsbyShop)
         if(rewardsbyShop != null){
             return rewardsbyShop;
         } else {
