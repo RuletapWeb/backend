@@ -17,7 +17,11 @@ services:
       SENGRID_EMAIL_FROM: ${SENGRID_EMAIL_FROM}
       SENGRID_DEFAULT_REPLY: ${SENGRID_DEFAULT_REPLY}
       SENGRID_TEST_ACCOUNT: ${SENGRID_TEST_ACCOUNT}
+      EMAIL_SUBJECT: ${EMAIL_SUBJECT}
+      TOKEN_CHARS: ${TOKEN_CHARS}
+      TOKEN_LENGTH: ${TOKEN_LENGTH}
       TAP_LOGIN_URL: ${TAP_LOGIN_URL}
+      STRAPI_API_URL: ${STRAPI_API_URL}
     networks:
       - strapi-app-network
     volumes:
@@ -36,18 +40,6 @@ services:
     volumes:
       - strapidata:/data/db
   
-  # webserver:
-  #   image: nginx:alpine
-  #   container_name: webserver
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - ./nginx/conf.d/:/etc/nginx/conf.d/
-  #   networks:
-  #     - strapi-app-network
-  
   webserver:
     build:
       context: ../ruleta/.
@@ -55,7 +47,6 @@ services:
     container_name: webserver
     ports:
       - "80:80"
-      - "443:443"
     restart: always
     networks:
       - strapi-app-network

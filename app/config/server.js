@@ -1,14 +1,14 @@
 module.exports = ({ env }) => ({
   host: env('HOST', 'strapi'),
   port: env.int('PORT', 1337),
-  url: 'https://develop.ruletap.tk/api',
+  url : env('STRAPI_API_URL'),
   email: {
-    subject: "TAP - Tu premio!",
+    subject: env('EMAIL_SUBJECT'),
     templatePath: "/srv/app/public/email-tap.html"
   },
   token:{
-    chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
-    length: 10
+    chars: env('TOKEN_CHARS'),
+    length: env('TOKEN_LENGTH'),
   },
   respones:{
     playable: 1,
